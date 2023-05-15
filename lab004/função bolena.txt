@@ -1,0 +1,47 @@
+typedef enum {
+    false,true
+}bool;
+
+void contagem (Grafo *G, int vet_ini, int vet_fim){
+    
+}
+
+int contagem_rec (Grafo *G, int vet_ini, int vet_fim, bool *utilizados){
+    Lista ap_aux = G->adj[vet_ini];
+    bool aux_utili[G->n_aresta];
+    int retorno;
+
+    utilizados[vet_ini] = true;
+    while(ap_aux != NULL){
+        if(ap_aux->vertice == vet_fim) return 1;
+        ap_aux = ap_aux->prox;
+    }
+
+    ap_aux = G->adj[vet_ini];
+    while(ap_aux != NULL){
+        if(utilizados[ap_aux->vertice] == false){
+            retorno = contagem_rec(G,ap_aux->vertice,vet_fim,utilizados);
+            if(retorno){
+                return 1+retorno;
+            }
+        }  
+    }  
+    return 0;
+}
+
+
+
+int contagem (Grafo *G,int vet_ini, int vet_fim){
+    Lista* ap_aux = G->adj;
+    int cont=0;
+
+    while(ap_aux != NULL){
+        if((*ap_aux)->vertice == vet_fim) {
+            ++cont;
+            return cont;
+        }
+        *ap_aux = (*ap_aux)->prox;
+    }
+
+    return 0;
+}
