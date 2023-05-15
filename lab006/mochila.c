@@ -1,7 +1,3 @@
-/*fazer como na mascara de bits e selecionar o primeiro valor do vetor, fazer todas as 
-combinacoes possiveis para ele e guardar o maior valor possivel dele, depois fazer para o 
-seguinte e comparar com um | ate o penultimo*/
-
 #include<stdio.h>
 
 typedef struct {

@@ -1,0 +1,1 @@
+Implemente as funções declaradas em lista.h utilizando a lista ligada simples definida em lista.h (com ou sem nó cabeça).
