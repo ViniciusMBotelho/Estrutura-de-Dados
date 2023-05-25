@@ -1,0 +1,1 @@
+Implemente as funções declaradas no arquivo Arvore.h, insere, busca e remove de árvore de busca binária.
