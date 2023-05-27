@@ -38,21 +38,46 @@ bool insere(Arvore* ap_arv, int x){
 }
 
 bool remove_(Arvore* ap_arv, int x){
-  Arvore *ap_aux = ap_arv;
+  //caso o valor nao exista ou a arvore esteja vazia return false
   if(busca(*ap_arv,x) == false) return false;
 
-  while(x != (*ap_aux)->valor){
-    if((*ap_aux)->valor < x) (*ap_aux) = (*ap_aux)->esq;
-    else (*ap_arv) = (*ap_aux)->dir;
-  }
+  //busca o valor na arvore
+  if(x < (*ap_arv)->valor) return remove_(&(*ap_arv)->esq,x);
+  else if(x > (*ap_arv)->valor) return remove_(&(*ap_arv)->dir,x);
 
-  if((*ap_aux)->esq == NULL && (*ap_aux)->dir == NULL){
-    free(ap_aux);
-    ap_aux == NULL;
-  }else if((*ap_aux)->esq == NULL || (*ap_aux)->dir == NULL){
-    (*ap_aux)->esq == NULL ? ((*ap_aux) = (*ap_aux)->dir) : ((*ap_aux) = (*ap_aux)->esq);
-  }else{
-    
+  else {
+    if(((*ap_arv)->dir) == NULL && ((*ap_arv)->esq) == NULL){
+      (*ap_arv) = NULL;
+      return true;
+    }else if(((*ap_arv)->dir) == NULL || ((*ap_arv)->esq) == NULL){
+      if(((*ap_arv)->dir) == NULL){
+        (*ap_arv) = ((*ap_arv)->esq);
+        return true;
+      }else{
+        (*ap_arv) = ((*ap_arv)->dir);
+        return true;
+       }
+    }else {
+      Arvore *ap_busca = &((*ap_arv)->dir);
+
+      if((*ap_arv)->dir->esq == NULL){
+        (*ap_arv)->valor = (*ap_arv)->esq->valor;
+        free((*ap_arv)->esq);
+        (*ap_arv)->esq = NULL;
+      }
+
+      if((*ap_arv)->dir->esq != NULL){
+        (*ap_busca) = (*ap_busca)->dir;
+        while((*ap_busca)->esq != NULL){
+          (*ap_busca) = (*ap_busca)->esq;
+        }
+        (*ap_arv)->valor = (*ap_busca)->valor;
+        remove_(ap_busca,(*ap_busca)->valor);
+        
+        return true;
+      }
+
+    }
   }
 }
 
