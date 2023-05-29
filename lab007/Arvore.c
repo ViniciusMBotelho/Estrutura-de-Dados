@@ -58,25 +58,21 @@ bool remove_(Arvore* ap_arv, int x){
         return true;
        }
     }else {
-      Arvore *ap_busca = &((*ap_arv)->dir);
-
-      if((*ap_arv)->dir->esq == NULL){
+      Arvore* ap_aux = ap_arv;
+      if((*ap_aux)->esq->dir == NULL){
         (*ap_arv)->valor = (*ap_arv)->esq->valor;
-        free((*ap_arv)->esq);
-        (*ap_arv)->esq = NULL;
-      }
-
-      if((*ap_arv)->dir->esq != NULL){
-        (*ap_busca) = (*ap_busca)->dir;
-        while((*ap_busca)->esq != NULL){
-          (*ap_busca) = (*ap_busca)->esq;
+        remove_(&((*ap_arv)->esq),(*ap_arv)->valor);
+        return true;
+      }else if((*ap_aux)->esq->dir != NULL){
+        (*ap_aux) = (*ap_aux)->esq;
+        while((*ap_aux)->dir != NULL){
+          (*ap_aux) = (*ap_aux)->dir;
         }
-        (*ap_arv)->valor = (*ap_busca)->valor;
-        remove_(ap_busca,(*ap_busca)->valor);
-        
+        (*ap_arv)->valor = (*ap_aux)->valor;
+        printf("valor de arv->valor %d",(*ap_arv)->valor);
+        remove_(&(*ap_arv)->esq,(*ap_arv)->valor);
         return true;
       }
-
     }
   }
 }

@@ -19,19 +19,19 @@ Elemento 100 encontrado.
 Elemento 75 nao encontrado.
 Elemento 70 encontrado.
 [100:e=[50:e=[30:e=.,d=.],d=[70:e=.,d=.]],d=[200:e=[150:e=.,d=.],d=[300:e=.,d=.]]]
-Removido 100.
-[300:e=[50:e=[30:e=.,d=.],d=[70:e=.,d=.]],d=.]
+valor de arv->valor 70Removido 100.
+[70:e=.,d=.]
 Remocao de 150 falhou.
-[300:e=[50:e=[30:e=.,d=.],d=[70:e=.,d=.]],d=.]
+[70:e=.,d=.]
 Remocao de 200 falhou.
-[300:e=[50:e=[30:e=.,d=.],d=[70:e=.,d=.]],d=.]
-Removido 300.
-[50:e=[30:e=.,d=.],d=[70:e=.,d=.]]
+[70:e=.,d=.]
+Remocao de 300 falhou.
+[70:e=.,d=.]
 Remocao de 75 falhou.
-[50:e=[30:e=.,d=.],d=[70:e=.,d=.]]
+[70:e=.,d=.]
 Removido 70.
-[50:e=[30:e=.,d=.],d=.]
-Removido 30.
-[50:e=.,d=.]
-Removido 50.
+.
+Remocao de 30 falhou.
+.
+Remocao de 50 falhou.
 .
