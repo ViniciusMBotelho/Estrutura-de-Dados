@@ -2,6 +2,15 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int antec(Arvore *ap_arv,int x){
+  Arvore ap_aux = *ap_arv;
+  (ap_aux) = (ap_aux)->esq;
+  while(((ap_aux)->dir) != NULL) {
+    (ap_aux) = (ap_aux)->dir;
+  }
+  return (ap_aux)->valor;
+}
+
 void imprime_rec(Arvore arv) {
   if (arv == NULL) {
     printf(".");
@@ -57,20 +66,16 @@ bool remove_(Arvore* ap_arv, int x){
         (*ap_arv) = ((*ap_arv)->dir);
         return true;
        }
-    }else {
-      Arvore* ap_aux = ap_arv;
-      if((*ap_aux)->esq->dir == NULL){
+    }else{
+      if((*ap_arv)->esq->dir == NULL){
         (*ap_arv)->valor = (*ap_arv)->esq->valor;
         remove_(&((*ap_arv)->esq),(*ap_arv)->valor);
         return true;
-      }else if((*ap_aux)->esq->dir != NULL){
-        (*ap_aux) = (*ap_aux)->esq;
-        while((*ap_aux)->dir != NULL){
-          (*ap_aux) = (*ap_aux)->dir;
-        }
-        (*ap_arv)->valor = (*ap_aux)->valor;
-        printf("valor de arv->valor %d",(*ap_arv)->valor);
-        remove_(&(*ap_arv)->esq,(*ap_arv)->valor);
+      }else if((*ap_arv)->esq->dir != NULL){
+        int maior_antec;
+        maior_antec = antec(ap_arv,x);
+        (*ap_arv)->valor = maior_antec;
+        remove_(&(*ap_arv)->esq,maior_antec);
         return true;
       }
     }
@@ -79,8 +84,8 @@ bool remove_(Arvore* ap_arv, int x){
 
 bool busca(Arvore arv, int x){
   if(arv == NULL) return false;
-
   if(x == arv->valor) return true;
   if(x < arv->valor) return busca(arv->esq,x);
   else if(x > arv->valor) return busca(arv->dir,x);
 }
+
