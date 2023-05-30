@@ -2,15 +2,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int antec(Arvore *ap_arv,int x){
-  Arvore ap_aux = *ap_arv;
-  (ap_aux) = (ap_aux)->esq;
-  while(((ap_aux)->dir) != NULL) {
-    (ap_aux) = (ap_aux)->dir;
-  }
-  return (ap_aux)->valor;
-}
-
 void imprime_rec(Arvore arv) {
   if (arv == NULL) {
     printf(".");
@@ -32,18 +23,25 @@ bool insere(Arvore* ap_arv, int x){
   if(*ap_arv == NULL){
     No* novo = (No*) malloc(sizeof(No));
     if(novo == NULL) return false;
-
     novo->dir = NULL;
     novo->esq = NULL;
     novo->valor = x;
     *ap_arv = novo;
     return true;
   }
-
   if(x < (*ap_arv)->valor) return insere(&((*ap_arv)->esq),x);
   else if(x > (*ap_arv)->valor) return insere(&((*ap_arv)->dir),x);
-
   return false;
+}
+
+int antec(Arvore *ap_arv,int x){ //busca o maior antecessor e retorna o valor
+  Arvore ap_aux = *ap_arv;
+  (ap_aux) = (ap_aux)->esq;
+  while(((ap_aux)->dir) != NULL) {
+    (ap_aux) = (ap_aux)->dir;
+  }
+  (*ap_arv)->valor = ap_aux->valor;
+  return ap_aux->valor;
 }
 
 bool remove_(Arvore* ap_arv, int x){
@@ -54,7 +52,7 @@ bool remove_(Arvore* ap_arv, int x){
   if(x < (*ap_arv)->valor) return remove_(&(*ap_arv)->esq,x);
   else if(x > (*ap_arv)->valor) return remove_(&(*ap_arv)->dir,x);
 
-  else {
+  else { //verificar como sera feito a remocao
     if(((*ap_arv)->dir) == NULL && ((*ap_arv)->esq) == NULL){
       (*ap_arv) = NULL;
       return true;
@@ -65,17 +63,14 @@ bool remove_(Arvore* ap_arv, int x){
       }else{
         (*ap_arv) = ((*ap_arv)->dir);
         return true;
-       }
-    }else{
+      } 
+    }else{ //para quando o no alvo possui netos
       if((*ap_arv)->esq->dir == NULL){
         (*ap_arv)->valor = (*ap_arv)->esq->valor;
         remove_(&((*ap_arv)->esq),(*ap_arv)->valor);
         return true;
       }else if((*ap_arv)->esq->dir != NULL){
-        int maior_antec;
-        maior_antec = antec(ap_arv,x);
-        (*ap_arv)->valor = maior_antec;
-        remove_(&(*ap_arv)->esq,maior_antec);
+        remove_(&(*ap_arv)->esq,antec(ap_arv,x));
         return true;
       }
     }
