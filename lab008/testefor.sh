@@ -7,7 +7,7 @@
 #echo numero de testes:
 #read numTestes
 
-for((i=1;i<($1 + 1 );i=i+1))
+for((i=0;i<($1 + 1 );i=i+1))
 do 
 	echo "*****************************" $i "verificado";
 	./a.out < ins/$i.in > ins/saida$i.out;
